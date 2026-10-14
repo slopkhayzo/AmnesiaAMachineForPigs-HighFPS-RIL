@@ -1,5 +1,13 @@
 # AmnesiaAMFP.FPSFix
 
+> [!WARNING]
+> This patch has been pretty much entirely been generated using AI; 
+> I won't and will never claim to have enough knowledge or expertise to do this 
+> kind of reverse-engineering by myself; I've tested about 5 levels (reached the church) at 360hz + 
+> briefly tested at 120, 144 and 240 and so far spotted 
+> no major issues (on my machine ofc, if you have issues feel free to open an Issue).
+> If you're interested and want more (human generated) info, I have a blog post [here](https://slop-blog.enkhayzomachines.net/posts/amnesia-a-machine-for-pigs-high-fps-ril) :)
+
 A high-frame-rate fix for the Windows version of *Amnesia: A Machine for Pigs*.
 It lets the game render above 60 FPS while physics, scripts, AI, saves, and
 other gameplay systems stay on the engine's original 60 Hz update loop.
