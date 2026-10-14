@@ -1,0 +1,4 @@
+#pragma once
+
+#define AMNESIA_AMFP_FPS_FIX_NAME L"AmnesiaAMFP.FPSFix"
+#define AMNESIA_AMFP_FPS_FIX_VERSION L"1.0.0"

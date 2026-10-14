@@ -1,0 +1,10 @@
+# Local reverse-engineering material, tools, captures, and evidence.
+/research/
+
+# Local build and package output.
+/build*/
+/dist/
+
+# Runtime diagnostics copied beside development builds.
+*.log
+*.motion.csv
