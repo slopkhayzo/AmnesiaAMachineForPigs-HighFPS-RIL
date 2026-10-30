@@ -19,7 +19,9 @@ using signature::Pattern;
 
 // GOG build 51194033869387641, aamfp.exe SHA-256
 // 9FAE927B3B37D37C7E087548D895581A3AF2EC541019F4C2A81D8392A5C8BE8B.
-// Absolute addresses and relative call displacements are wildcarded.
+// Absolute addresses and relative call displacements are wildcarded. "Retail
+// RVA" comments name that build. Every signature also matches exactly once in
+// Steam build 1648011 (2017), both aamfp.exe and aamfp_NoSteam.exe.
 constexpr std::array<std::uint8_t, 48> kEngineRunBytes{
     0x55, 0x8B, 0xEC, 0x6A, 0xFF, 0x68, 0x00, 0x00,
     0x00, 0x00, 0x64, 0xA1, 0x00, 0x00, 0x00, 0x00,
@@ -128,7 +130,11 @@ constexpr std::array<std::uint8_t, 24> kLogicWantUpdateBytes{
 
 // Mouse-look path. Call displacements and relocated addresses are wildcarded;
 // the remaining bytes pin every structure offset the mouse runtime reads.
-// Retail RVA 0x002113B0.
+// Retail RVA 0x002113B0. The frame size and the two locals of the
+// SDL_GetRelativeMouseState flush loop are wildcarded: the Steam build drops
+// GOG's relative-mode cursor integration from the end of the function and so
+// has fewer locals. Both builds still end by storing SDL_GetRelativeMouseState
+// into +0x30/+0x34.
 constexpr std::array<std::uint8_t, 48> kMouseSdlUpdateBytes{
     0x55, 0x8B, 0xEC, 0x83, 0xEC, 0x24, 0x53, 0x56,
     0x8B, 0xF1, 0x33, 0xDB, 0x57, 0x38, 0x5E, 0x24,
@@ -137,7 +143,7 @@ constexpr std::array<std::uint8_t, 48> kMouseSdlUpdateBytes{
     0xFC, 0x51, 0xE8, 0x00, 0x00, 0x00, 0x00, 0x83,
     0xC4, 0x08, 0x4F, 0x75, 0xE8, 0x88, 0x5E, 0x24};
 constexpr std::string_view kMouseSdlUpdateMask =
-    "xxxxxxxxxxxxxxxxxxxxxx????xxxxxxxxx????xxxxxxxxx";
+    "xxxxx?xxxxxxxxxxxxxxxx????xx?xxx?xx????xxxxxxxxx";
 // Retail RVA 0x00211360.
 constexpr std::array<std::uint8_t, 29> kMouseSdlGetRelPositionBytes{
     0x55, 0x8B, 0xEC, 0x8B, 0x51, 0x30, 0x8B, 0x45,
@@ -180,7 +186,9 @@ constexpr std::array<std::uint8_t, 57> kCamDirEffectsYawAddBytes{
 constexpr std::string_view kCamDirEffectsYawAddMask =
     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 // Retail RVA 0x00164650. Pins mpSetInFocus +0x34, mpGraphics +0x24, and the
-// two-argument stack cleanup.
+// two-argument stack cleanup. The final byte is the iLowLevelGraphics vtable
+// slot of GetScreenSizeFloat: 0x2C in GOG, 0x30 in Steam, whose interface has
+// one more virtual before it (as in the public source).
 constexpr std::array<std::uint8_t, 40> kGuiSendMousePosBytes{
     0x55, 0x8B, 0xEC, 0x83, 0xEC, 0x5C, 0x56, 0x8B,
     0xF1, 0x83, 0x7E, 0x34, 0x00, 0x75, 0x09, 0x32,
@@ -188,7 +196,7 @@ constexpr std::array<std::uint8_t, 40> kGuiSendMousePosBytes{
     0x8B, 0x46, 0x24, 0x8B, 0x48, 0x20, 0x8B, 0x45,
     0x08, 0xDB, 0x00, 0x8B, 0x11, 0x8B, 0x52, 0x2C};
 constexpr std::string_view kGuiSendMousePosMask =
-    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx?";
 // Retail RVA 0x0009F4B0.
 constexpr std::array<std::uint8_t, 32> kLuxUpdateGamePlayerInputBytes{
     0x55, 0x8B, 0xEC, 0xD9, 0xEE, 0x83, 0xEC, 0x30,
@@ -197,7 +205,8 @@ constexpr std::array<std::uint8_t, 32> kLuxUpdateGamePlayerInputBytes{
     0xC4, 0x01, 0x75, 0x5E, 0x8B, 0x4E, 0x34, 0x6A};
 constexpr std::string_view kLuxUpdateGamePlayerInputMask =
     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-// Retail RVA 0x0009F93D.
+// Retail RVA 0x0009F93D. Byte 0xD0 is the GetScreenSizeFloat vtable slot,
+// wildcarded as in kGuiSendMousePosBytes.
 constexpr std::array<std::uint8_t, 362> kLuxMouseLookBlockBytes{
     0x8B, 0x4E, 0x34, 0xE8, 0x00, 0x00, 0x00, 0x00,
     0x8B, 0x10, 0x8B, 0x52, 0x10, 0x8D, 0x4D, 0xD0,
@@ -250,7 +259,7 @@ constexpr std::string_view kLuxMouseLookBlockMask =
     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx????xx"
     "xx????x????xxxxxxxxxxxxxxxxxxxx????xxxx????xxxx?"
-    "???xxxxxxxxxxxxxxxxxxxxxxxxx????xxxxxxxxxxxxxxxx"
+    "???xxxxxxxxxxxxx?xxxxxxxxxxx????xxxxxxxxxxxxxxxx"
     "xxxxxxxxxxxxxxxxxxxxxxxx????xxxxxxxxxxxxxxx????x"
     "xxxxxxxxxxxxx????xxxxxxxxxxxxxxxxx????xxxxxxxxxx"
     "xxxxxxxxxxxxxxxxxxxxxxxxxx";

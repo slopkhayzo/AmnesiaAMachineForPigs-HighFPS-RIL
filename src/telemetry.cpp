@@ -3669,8 +3669,7 @@ bool Initialize(const target::CoreMapping& mapping,
     if (imageTrailTimingEnabled) {
         log::Write(log::Level::info,
                    L"Stock-60-Hz-equivalent image-trail accumulation timing "
-                   L"enabled at cPostEffect_ImageTrail::RenderEffect RVA "
-                   L"0x001EA980.");
+                   L"enabled at cPostEffect_ImageTrail::RenderEffect.");
     }
     log::Write(log::Level::info,
                 (cameraInterpolationEnabled || handsInterpolationEnabled ||

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 
 project(
     AmnesiaAmfpFpsFix
-    VERSION 1.0.0
+    VERSION 1.1.0
     DESCRIPTION "High-frame-rate presentation fix for Amnesia: A Machine for Pigs"
     LANGUAGES C CXX
 )

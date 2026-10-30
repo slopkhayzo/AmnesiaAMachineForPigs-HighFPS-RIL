@@ -32,36 +32,40 @@ the game.
 ## Tested
 
 The fix was tested on the GOG build from the mansion through the first Pig Man
-encounter at roughly 230 to 350 FPS. Later levels, the Water Lurker and other
-enemy types, custom stories, and commentary mode are untested. Anything the
-plugin does not recognise keeps its original 60 Hz motion.
+encounter at roughly 230 to 350 FPS. On the Steam build, `aamfp.exe` was played
+briefly in the alley level at roughly 300 to 360 FPS, without meeting a Pig Man;
+`aamfp_NoSteam.exe` was tested only to the main menu. Later levels, the Water
+Lurker and other enemy types, custom stories, and commentary mode are untested.
+Anything the plugin does not recognise keeps its original 60 Hz motion.
 
 ## Requirements
 
 - A 32-bit Windows copy of *Amnesia: A Machine for Pigs*
 - A compatible x86 ASI loader (one of the release archives includes it)
 
-The validated release target is the GOG Windows build:
+Supported builds:
 
-| | Value |
-| --- | --- |
-| GOG build ID | `51194033869387641` |
-| `aamfp.exe` SHA-256 | `9FAE927B3B37D37C7E087548D895581A3AF2EC541019F4C2A81D8392A5C8BE8B` |
+| Storefront | Build | Executables |
+| --- | --- | --- |
+| GOG | `51194033869387641` | `aamfp.exe` |
+| Steam | `1648011` | `aamfp.exe`, `aamfp_NoSteam.exe` |
 
-Other storefronts and revisions may work. On startup the plugin verifies every
-required engine signature and import instead of relying on the executable's
-name, hash, or install path. If the mapping is incompatible or ambiguous, it installs
-no hooks and records the reason in the log.
+Other revisions may work. On startup the plugin verifies every required engine
+signature and import instead of relying on the executable's name, hash, or
+install path. If the mapping is incompatible or ambiguous, it installs no hooks
+and records the reason in the log.
 
 ## Installation
 
-Everything goes in the game's `redist` folder, beside `aamfp.exe`, not in the
-parent game folder.
+Everything goes in the folder that contains `aamfp.exe`:
+
+- GOG: the `redist` folder, not the parent game folder.
+- Steam: the game folder itself (`steamapps\common\Machine for Pigs`).
 
 ### Bundle with Ultimate ASI Loader
 
 1. Open the archive ending in `with-Ultimate-ASI-Loader.zip`.
-2. Copy its contents into `redist`.
+2. Copy its contents into the folder that contains `aamfp.exe`.
 3. Start the game normally.
 
 Do not overwrite an existing `wininet.dll`. If one is already present, another
@@ -72,7 +76,8 @@ instead.
 
 1. Install a compatible x86 ASI loader for the game.
 2. Copy `AmnesiaAMFP.FPSFix.asi` and `AmnesiaAMFP.FPSFix.ini` together into
-   `redist`, or into another directory scanned by that loader.
+   the folder that contains `aamfp.exe`, or into another directory scanned by
+   that loader.
 3. Start the game normally.
 
 The plugin always looks for its INI beside the ASI.

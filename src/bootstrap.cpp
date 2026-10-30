@@ -343,7 +343,7 @@ DWORD WINAPI BootstrapThread(void* moduleParameter) {
         log::Write(
             log::Level::warning,
             L"One or more behavioral or motion-trace features were requested, "
-            L"but 1.0.0 keeps those remaining features disabled.");
+            L"but this release keeps those remaining features disabled.");
     }
 
     log::Write(log::Level::info,

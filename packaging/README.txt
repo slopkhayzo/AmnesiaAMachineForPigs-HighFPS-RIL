@@ -1,4 +1,4 @@
-AmnesiaAMFP.FPSFix 1.0.0
+AmnesiaAMFP.FPSFix 1.1.0
 ========================
 
 AmnesiaAMFP.FPSFix lets Amnesia: A Machine for Pigs render above 60 FPS while
@@ -19,36 +19,40 @@ required mapping is absent or ambiguous, startup fails closed before any
 engine hook is installed and the reason is written to the log. This scan runs
 once at startup.
 
-Validated release build:
+Supported builds:
 
-GOG Windows build ID: 51194033869387641
-aamfp.exe SHA-256:
-9FAE927B3B37D37C7E087548D895581A3AF2EC541019F4C2A81D8392A5C8BE8B
+GOG Windows build 51194033869387641: aamfp.exe
+Steam build 1648011: aamfp.exe and aamfp_NoSteam.exe
 
-Other storefronts and executable revisions are allowed by the compatibility
-scanner but are untested.
+Other executable revisions are allowed by the compatibility scanner but are
+untested.
 
-Tested on the main game from the mansion through the first Pig Man encounter
-at roughly 230 to 350 FPS. Later levels, the Water Lurker and other enemy
-types, custom stories, and commentary mode are untested; anything the plugin
-does not recognise keeps its original 60 Hz motion.
+Tested on the GOG build from the mansion through the first Pig Man encounter
+at roughly 230 to 350 FPS. On the Steam build, aamfp.exe was played briefly in
+the alley level at roughly 300 to 360 FPS, without meeting a Pig Man;
+aamfp_NoSteam.exe was tested only to the main menu. Later levels, the Water
+Lurker and other enemy types, custom stories, and commentary mode are untested;
+anything the plugin does not recognise keeps its original 60 Hz motion.
 
 INSTALLATION
 ------------
 
-All files go in the "redist" folder beside aamfp.exe, not in the parent game
-folder.
+All files go in the folder that contains aamfp.exe:
+
+- GOG: the "redist" folder, not the parent game folder.
+- Steam: the game folder itself (steamapps\common\Machine for Pigs).
 
 Plugin-only package:
 
 1. Install a compatible x86 ASI loader for the game.
 2. Copy AmnesiaAMFP.FPSFix.asi and AmnesiaAMFP.FPSFix.ini together into
-   "redist", or into another directory scanned by that loader.
+   the folder that contains aamfp.exe, or into another directory scanned by
+   that loader.
 
 Package bundled with Ultimate ASI Loader:
 
 1. Copy AmnesiaAMFP.FPSFix.asi, AmnesiaAMFP.FPSFix.ini, and wininet.dll into
-   "redist".
+   the folder that contains aamfp.exe.
 2. Do not overwrite an existing wininet.dll. If one is already present, find
    out which mod owns it and use the plugin-only package with that loader
    instead.
